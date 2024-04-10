@@ -1,6 +1,9 @@
 Flask,
 
 flask is a web gramework that provides libraries to build lightweight web applications in python. 
-developed by : Armin Ronacher who leads an international group of python enthusiasts(POCCO)
-based on : WSGI toolkit and jij=nja2 template engine,
-flas is considered as a micro framework
+  developed by : Armin Ronacher who leads an international group of python enthusiasts(POCCO)
+  based on : WSGI toolkit and jij=nja2 template engine,
+  flas is considered as a micro framework
+
+WSGI : web server gaeway interface is an interface between web servers and wed apps for python.  
+  mod_wsgi is an Apache HPPT server module that enables apache to serve Flasks
