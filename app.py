@@ -1,26 +1,24 @@
-from flask import Flask,redirect,url_for
-import jinja2,os
+from flask import Flask, render_template, jsonify
 
+app = Flask(__name__)
 
-landing_zone=Flask(__name__)
+# Define a list of services
+services = ["Lambda", "RDS", "EC2", "Load Balancers"]
 
-def render_template(template, **kwargs):return jinja2.Environment(loader=jinja2.FileSystemLoader(searchpath=os.path.dirname(os.path.abspath(__file__)))).get_template(template).render(**kwargs)
+# Route to fetch the list of services
+@app.route('/services')
+def get_services():
+    return render_template('services.html')
 
-@landing_zone.route('/HOME/')
-def useless():
-    return  render_template("./lz.html")
-    
+# Route to render the index.html template
+@app.route('/')
+def index():
+    return render_template('temp.html')
 
-@landing_zone.route('/')
-def starting():
-    # return render_template("./templates/lz.html")
-    return render_template('./templates/lz.html')
+@app.route('/services/lambda')
+def lambda_reports():
 
+    return render_template('lambda_reports.html')
 
-# landing_zone.add_url_rule('/landingZone',"LZ",landing_zone)
-
-if __name__=="__main__":
-    landing_zone.run(debug=True)
-
-
-
+if __name__ == '__main__':
+    app.run(debug=True)
