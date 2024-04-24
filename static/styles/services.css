@@ -1,0 +1,79 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.main{
+    width: 100%;
+    background: linear-gradient(to top, rgba(199, 179, 179, 0.5)50%,rgba(255, 255, 255, 0.5)50%), url(./images/lz454.jpg);
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+}
+
+.navbar{
+    width: 1200px;
+    height: 75px;
+    margin: auto;
+}
+
+/* .icon{
+    width: 200px;
+    float: left;
+    height: 70px;
+} */
+
+.logo{
+    color: #3109e6;
+    font-size: 35px;
+    font-family: Arial;
+    padding-left: 0px;
+    float: center;
+    padding-top: 10px;
+    margin-top: 5px
+}
+
+
+
+.service{
+    color: #000001;
+    font-size: 50px;
+    font-family: Arial;
+    padding-left: 500px;
+    float: center;
+    padding-top: 10px;
+    margin-top: 5px
+}
+
+.menu{
+    width: 400px;
+    float: down;
+    padding-left: 170px;
+    height: 70px;
+}
+
+ul{
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ul li{
+    list-style: none;
+    margin-left: 100px;
+    margin-top: 27px;
+    font-size: 25px;
+}
+
+ul li a{
+    text-decoration: none;
+    color: #0a0808;
+    font-family: Arial;
+    font-weight: bold;
+    transition: 0.4s ease-in-out;
+}
+
+ul li a:hover{
+    color: #ff7200;
+}

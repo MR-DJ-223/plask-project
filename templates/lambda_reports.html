@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Lambda Reports</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/welcomestyle.css') }}">
+</head>
+<body>
+    <div class="main">
+        <div class="navbar">
+            <div class="icon">
+                <br><br><br><br>
+                <a href="/" class="logo">Landing Zone</a>
+            </div>
+        </div>
+    
+
+    <div class="container">
+        <h1>Generate Report</h1>
+        <form action="/generate_report" method="POST">
+            <label for="accountNumber">AWS Account Number:</label>
+            <input type="text" id="accountNumber" name="accountNumber">
+            <button type="submit">Generate Report</button>
+        </form>
+        <!-- Display report result here -->
+        <div id="reportResult" style="display: none;"></div>
+    </div>
+</div>
+</body>
+</html>

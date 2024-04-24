@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>LZ portal</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/welcomestyle.css') }}">
+    <style>
+        /* Add custom CSS for the hover effect */
+        #dynamicServicesList li:hover {
+            font-size: 20px;
+            color: orange;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="main">
+        <div class="navbar">
+            <div class="icon">
+                <br><br><br><br>
+                <h2 class="logo">Landing Zone</h2>
+            </div>
+
+            <div class="menu">
+                <ul>
+                    <li><a href="#">HOME</a></li>
+                    <li><a href="#" id="servicesBtn">SERVICES</a></li>
+                    <li><a href="#">STATUS</a></li>
+                    <li><a href="#">CONTACT</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="servicesList" style="display: none;">
+        <h3>Services</h3>
+        <ul id="dynamicServicesList">
+            <!-- Dynamic services will be appended here -->
+        </ul>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $("#servicesBtn").click(function(){
+                // Clear previous list items
+                $("#dynamicServicesList").empty();
+                
+                // Fetch services from the server
+                $.get("/services", function(data){
+                    // Append dynamic services to the list
+                    $.each(data, function(index, service){
+                        $("#dynamicServicesList").append("<li>" + service + "</li>");
+                    });
+
+                    // Show the services list
+                    $("#servicesList").show();
+                });
+            });
+
+            // Add mouseenter and mouseleave event handlers to dynamically generated list items
+            $(document).on("mouseenter", "#dynamicServicesList li", function() {
+                $(this).css({"font-size": "20px", "color": "orange"});
+            });
+
+            $(document).on("mouseleave", "#dynamicServicesList li", function() {
+                $(this).css({"font-size": "", "color": ""});
+            });
+        });
+    </script>
+</body>
+</html>

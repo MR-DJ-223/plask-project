@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>LZ portal</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/welcomestyle.css') }}">
+</head>
+<body>
+    <div class="main">
+        <div class="navbar">
+            <div class="icon">
+                <br><br><br><br>
+                <h2 class="logo">Landing Zone</h2>
+            </div>
+
+            <div class="menu">
+                <ul>
+                    <li><a href="#">HOME</a></li>
+                    <li><a href="services">SERVICES</a></li>
+                    <li><a href="#">STATUS</a></li>
+                    <li><a href="#">CONTACT</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="servicesList">
+        <h3>Services</h3>
+        <ul id="dynamicServicesList">
+            {% for service in services %}
+            <li>{{ service }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
