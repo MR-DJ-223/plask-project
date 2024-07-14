@@ -10,20 +10,8 @@
     <div class="container">
         <div class="left-sidebar">
             <ul>
-                <li><a href="#">CyberArk Password</a></li>
-                <ul>
-                    <li><button onclick="updatePassword('cyberark')">Update Password</button></li>
-                    <li><button onclick="showPassword('cyberark')">Show Password (Copy Only)</button></li>
-                    <li>Option 3</li>
-                    <li>Option 4</li>
-                    <li>Option 5</li>
-                    <li>Option 6</li>
-                </ul>
-                <li><a href="#">LZ-prod Account List</a></li>
-                <ul>
-                    <li><button onclick="showPassword('prod_account')">Show Prod Account</button></li>
-                    <li><button onclick="showPassword('ss_dev')">Show SS Dev</button></li>
-                </ul>
+                <li><a href="{{ url_for('cyberark') }}">CyberArk Password</a></li>
+                <li><a href="{{ url_for('lz_prod') }}">LZ-prod Account List</a></li>
             </ul>
         </div>
         <div class="main-content">
@@ -44,46 +32,16 @@
                 <h2>Daily Activities</h2>
                 <form action="/update_activity" method="POST">
                     <textarea name="activity" placeholder="Add a daily activity..."></textarea>
+                    <input type="time" name="time" required>
                     <button type="submit">Add Activity</button>
                 </form>
                 <ul>
                     {% for activity in activities %}
-                    <li>{{ activity }}</li>
+                    <li>{{ activity.activity }} at {{ activity.time }}</li>
                     {% endfor %}
                 </ul>
             </div>
         </div>
     </div>
-    <script>
-        function updatePassword(service) {
-            let password = prompt("Enter new password for " + service + ":");
-            if (password) {
-                fetch('/update_password', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: 'service=' + service + '&password=' + password
-                }).then(response => {
-                    if (response.ok) {
-                        alert('Password updated successfully');
-                    }
-                });
-            }
-        }
-
-        function showPassword(service) {
-            fetch('/get_password?service=' + service)
-                .then(response => response.json())
-                .then(data => {
-                    let password = data.password;
-                    navigator.clipboard.writeText(password).then(function() {
-                        alert('Password copied to clipboard');
-                    }, function(err) {
-                        console.error('Could not copy text: ', err);
-                    });
-                });
-        }
-    </script>
 </body>
 </html>

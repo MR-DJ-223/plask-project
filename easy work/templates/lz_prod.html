@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LZ-prod Account List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="left-sidebar">
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('cyberark') }}">CyberArk Password</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <h1>LZ-prod Account List</h1>
+            <form action="/add_account" method="POST">
+                <input type="text" name="account" placeholder="Add new account" required>
+                <button type="submit">Add Account</button>
+            </form>
+            <input type="text" id="search" placeholder="Search account" oninput="searchAccount()">
+            <ul id="account-list">
+                {% for account in accounts %}
+                <li>{{ account }}</li>
+                {% endfor %}
+            </ul>
+            <script>
+                function searchAccount() {
+                    let query = document.getElementById('search').value;
+                    fetch('/search_account?query=' + query)
+                        .then(response => response.json())
+                        .then(data => {
+                            let accountList = document.getElementById('account-list');
+                            accountList.innerHTML = '';
+                            data.forEach(account => {
+                                let li = document.createElement('li');
+                                li.textContent = account;
+                                accountList.appendChild(li);
+                            });
+                        });
+                }
+            </script>
+        </div>
+    </div>
+</body>
+</html>

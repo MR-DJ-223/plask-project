@@ -43,3 +43,16 @@ button {
     display: block;
     margin-top: 10px;
 }
+
+input[type="time"] {
+    margin-top: 10px;
+}
+
+#search {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+#account-list li {
+    margin: 5px 0;
+}
