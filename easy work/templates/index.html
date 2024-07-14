@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Application</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="left-sidebar">
+            <ul>
+                <li><a href="#">CyberArk Password</a></li>
+                <ul>
+                    <li><button onclick="updatePassword('cyberark')">Update Password</button></li>
+                    <li><button onclick="showPassword('cyberark')">Show Password (Copy Only)</button></li>
+                    <li>Option 3</li>
+                    <li>Option 4</li>
+                    <li>Option 5</li>
+                    <li>Option 6</li>
+                </ul>
+                <li><a href="#">LZ-prod Account List</a></li>
+                <ul>
+                    <li><button onclick="showPassword('prod_account')">Show Prod Account</button></li>
+                    <li><button onclick="showPassword('ss_dev')">Show SS Dev</button></li>
+                </ul>
+            </ul>
+        </div>
+        <div class="main-content">
+            <h1>Welcome, User!</h1>
+            <div class="quick-notes">
+                <h2>Quick Notes</h2>
+                <form action="/update_note" method="POST">
+                    <textarea name="note" placeholder="Add a quick note..."></textarea>
+                    <button type="submit">Add Note</button>
+                </form>
+                <ul>
+                    {% for note in notes %}
+                    <li>{{ note }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="daily-activities">
+                <h2>Daily Activities</h2>
+                <form action="/update_activity" method="POST">
+                    <textarea name="activity" placeholder="Add a daily activity..."></textarea>
+                    <button type="submit">Add Activity</button>
+                </form>
+                <ul>
+                    {% for activity in activities %}
+                    <li>{{ activity }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        function updatePassword(service) {
+            let password = prompt("Enter new password for " + service + ":");
+            if (password) {
+                fetch('/update_password', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'service=' + service + '&password=' + password
+                }).then(response => {
+                    if (response.ok) {
+                        alert('Password updated successfully');
+                    }
+                });
+            }
+        }
+
+        function showPassword(service) {
+            fetch('/get_password?service=' + service)
+                .then(response => response.json())
+                .then(data => {
+                    let password = data.password;
+                    navigator.clipboard.writeText(password).then(function() {
+                        alert('Password copied to clipboard');
+                    }, function(err) {
+                        console.error('Could not copy text: ', err);
+                    });
+                });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+}
+
+.left-sidebar {
+    width: 20%;
+    background-color: #f4f4f4;
+    padding: 10px;
+}
+
+.left-sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.left-sidebar ul ul {
+    padding-left: 20px;
+}
+
+.left-sidebar li {
+    margin-bottom: 10px;
+}
+
+.main-content {
+    width: 80%;
+    padding: 20px;
+}
+
+.quick-notes, .daily-activities {
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 100%;
+    height: 50px;
+}
+
+button {
+    display: block;
+    margin-top: 10px;
+}
