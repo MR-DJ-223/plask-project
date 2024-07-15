@@ -17,29 +17,71 @@
         <div class="main-content">
             <h1>LZ-prod Account List</h1>
             <form action="/add_account" method="POST">
-                <input type="text" name="account" placeholder="Add new account" required>
+                <input type="text" name="account_name" placeholder="Account Name" required>
+                <input type="text" name="account_number" placeholder="Account Number" required>
                 <button type="submit">Add Account</button>
             </form>
             <input type="text" id="search" placeholder="Search account" oninput="searchAccount()">
-            <ul id="account-list">
-                {% for account in accounts %}
-                <li>{{ account }}</li>
-                {% endfor %}
-            </ul>
+            <table id="account-table">
+                <thead>
+                    <tr>
+                        <th>Account Name</th>
+                        <th>Account Number</th>
+                        <th>Actions</th>
+                        <th>Session</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for account in accounts %}
+                    <tr>
+                        <td>{{ account.name }}</td>
+                        <td>{{ account.number }}</td>
+                        <td><button class="highlight-btn" onclick="copyAccountNumber('{{ account.number }}')">Copy</button></td>
+                        <td><button class="highlight-btn" onclick="runSession('{{ account.number }}')">Run Session</button></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div id="session-output"></div>
             <script>
                 function searchAccount() {
                     let query = document.getElementById('search').value;
                     fetch('/search_account?query=' + query)
                         .then(response => response.json())
                         .then(data => {
-                            let accountList = document.getElementById('account-list');
-                            accountList.innerHTML = '';
+                            let accountTable = document.getElementById('account-table').getElementsByTagName('tbody')[0];
+                            accountTable.innerHTML = '';
                             data.forEach(account => {
-                                let li = document.createElement('li');
-                                li.textContent = account;
-                                accountList.appendChild(li);
+                                let row = accountTable.insertRow();
+                                row.innerHTML = `
+                                    <td>${account.name}</td>
+                                    <td>${account.number}</td>
+                                    <td><button class="highlight-btn" onclick="copyAccountNumber('${account.number}')">Copy</button></td>
+                                    <td><button class="highlight-btn" onclick="runSession('${account.number}')">Run Session</button></td>
+                                `;
                             });
                         });
+                }
+
+                function copyAccountNumber(number) {
+                    navigator.clipboard.writeText(number).then(function() {
+                        alert('Account number copied to clipboard');
+                    }, function(err) {
+                        console.error('Could not copy text: ', err);
+                    });
+                }
+
+                function runSession(number) {
+                    fetch('/run_session', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: 'account_number=' + number
+                    }).then(response => response.json())
+                    .then(data => {
+                        document.getElementById('session-output').innerText = data.output;
+                    });
                 }
             </script>
         </div>

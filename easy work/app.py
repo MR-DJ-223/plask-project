@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, jsonify
 import datetime
 import json
 import os
+import subprocess
 
 app = Flask(__name__)
 
@@ -21,7 +22,9 @@ data = load_data()
 
 @app.route('/')
 def index():
-    return render_template('index.html', notes=data['notes'], activities=data['activities'])
+    current_time = datetime.datetime.now().time()
+    notification = current_time.hour >= 12
+    return render_template('index.html', notes=data['notes'], activities=data['activities'], notification=notification)
 
 @app.route('/update_note', methods=['POST'])
 def update_note():
@@ -67,17 +70,25 @@ def get_password():
 
 @app.route('/add_account', methods=['POST'])
 def add_account():
-    account = request.form.get('account')
-    if account:
-        data['accounts'].append(account)
+    account_name = request.form.get('account_name')
+    account_number = request.form.get('account_number')
+    if account_name and account_number:
+        data['accounts'].append({'name': account_name, 'number': account_number})
         save_data(data)
     return redirect(url_for('lz_prod'))
 
 @app.route('/search_account', methods=['GET'])
 def search_account():
-    query = request.args.get('query')
-    results = [account for account in data['accounts'] if query.lower() in account.lower()]
+    query = request.args.get('query', '').lower()
+    results = [account for account in data['accounts'] if query in account['name'].lower() or query in account['number'].lower()]
     return jsonify(results=results)
 
+@app.route('/run_session', methods=['POST'])
+def run_session():
+    account_number = request.form.get('account_number')
+    result = subprocess.run(['python', 'samily.py', account_number], capture_output=True, text=True)
+    output = result.stdout
+    return jsonify(output=output)
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0',port=5000,debug=True)

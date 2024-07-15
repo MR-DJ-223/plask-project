@@ -1,5 +1,8 @@
 body {
     font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
@@ -8,8 +11,9 @@ body {
 
 .left-sidebar {
     width: 20%;
-    background-color: #f4f4f4;
+    background-color: #2c3e50;
     padding: 10px;
+    color: #ecf0f1;
 }
 
 .left-sidebar ul {
@@ -25,6 +29,11 @@ body {
     margin-bottom: 10px;
 }
 
+.left-sidebar a {
+    color: #ecf0f1;
+    text-decoration: none;
+}
+
 .main-content {
     width: 80%;
     padding: 20px;
@@ -37,22 +46,88 @@ body {
 textarea {
     width: 100%;
     height: 50px;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 14px;
+}
+
+input[type="time"], input[type="text"] {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 14px;
 }
 
 button {
     display: block;
     margin-top: 10px;
+    padding: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
 }
 
-input[type="time"] {
-    margin-top: 10px;
+button.highlight-btn:hover {
+    background-color: #e67e22;
 }
 
-#search {
-    margin-bottom: 10px;
+.notification .alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.notification .closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.notification .closebtn:hover {
+    color: black;
+}
+
+.nav-bar {
     width: 100%;
+    background-color: #34495e;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
 }
 
-#account-list li {
-    margin: 5px 0;
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#session-output {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #ecf0f1;
+    border: 1px solid #bdc3c7;
 }

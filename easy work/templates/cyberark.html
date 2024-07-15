@@ -16,8 +16,8 @@
         </div>
         <div class="main-content">
             <h1>CyberArk Password Management</h1>
-            <button onclick="updatePassword('cyberark')">Update Password</button>
-            <button onclick="showPassword('cyberark')">Show Password (Copy Only)</button>
+            <button class="highlight-btn" onclick="updatePassword('cyberark')">Update Password</button>
+            <button class="highlight-btn" onclick="showPassword('cyberark')">Show Password (Copy Only)</button>
             <script>
                 function updatePassword(service) {
                     let password = prompt("Enter new password for " + service + ":");
